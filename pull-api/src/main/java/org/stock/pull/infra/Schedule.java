@@ -1,7 +1,7 @@
 package org.stock.pull.infra;
 
 import io.quarkus.scheduler.Scheduled;
-import org.stock.pull.domain.usecase.PullStockPrice;
+import org.stock.pull.application.usecase.PullStockPrice;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;

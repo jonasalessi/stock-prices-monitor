@@ -11,3 +11,8 @@ It's a simple project just for fun using Quarkus with Kafka reactive channels an
 Reat-Time-API will expose the prices in real time using [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events). 
 
 [Client k4](/client-k4/) it's a script to simule some users requesting the endpoint.
+
+## Running the Dependencies
+```bash
+ docker-compose -f common.yml -f kafka_cluster.yml up -d
+```

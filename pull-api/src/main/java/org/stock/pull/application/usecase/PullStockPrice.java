@@ -1,8 +1,7 @@
-package org.stock.pull.domain.usecase;
+package org.stock.pull.application.usecase;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.stock.pull.domain.vo.StockPrice;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,7 +21,6 @@ public class PullStockPrice {
         this.emitter = emitter;
     }
 
-    @Incoming("distribute-pullers-in")
     public void execute(String ticker) {
         var price = BigDecimal.valueOf(RANDOM.nextDouble(10)).setScale(2, RoundingMode.HALF_UP);
         emitter.send(new StockPrice(ticker, price));
