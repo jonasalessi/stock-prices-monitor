@@ -1,4 +1,4 @@
-package org.stock.pull;
+package org.stock.pull.infra.http;
 
 import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -10,11 +10,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 @Path("/stock")
-public class StockPriceResource {
+public class StockPriceController {
 
     private final Multi<StockPrice> prices;
 
-    public StockPriceResource(@Channel("stock-prices-in") Multi<StockPrice> prices) {
+    public StockPriceController(@Channel("stock-prices-in") Multi<StockPrice> prices) {
         this.prices = prices;
     }
 
