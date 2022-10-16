@@ -6,6 +6,7 @@ import org.stock.company.domain.entity.Company;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 @Component
 public class RepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
+    private final HashSet<String> savedTickers = new HashSet<>();
 
     public List<Company> getInMemoryData() {
         return inMemoryData;
@@ -23,14 +25,15 @@ public class RepositoryInMemory implements CompanyRepository {
     public Mono<Void> save(Company company) {
         synchronized (this) {
             inMemoryData.add(company);
+            savedTickers.addAll(company.getTickers());
         }
         return Mono.empty();
     }
 
     @Override
-    public Mono<Boolean> existsTicker(String ticker) {
+    public Mono<Boolean> existsTicker(List<String> tickers) {
         synchronized (this) {
-            if (inMemoryData.stream().anyMatch(it -> it.getTicker().equals(ticker))) {
+            if (tickers.stream().anyMatch(ticker -> savedTickers.contains(ticker))) {
                 return Mono.just(Boolean.TRUE);
             }
         }

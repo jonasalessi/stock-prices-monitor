@@ -1,3 +1,6 @@
 package org.stock.company.application.port.in;
 
-public record RegisterCompanyCommand(String ticker, String name){}
+import java.util.List;
+
+public record RegisterCompanyCommand(List<String> tickers, String name) {
+}

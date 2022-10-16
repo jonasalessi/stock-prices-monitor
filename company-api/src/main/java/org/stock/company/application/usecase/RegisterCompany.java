@@ -21,14 +21,15 @@ class RegisterCompanyImpl implements RegisterCompany {
     }
 
     public Mono<Void> execute(RegisterCompanyCommand input) {
-        return repository.existsTicker(input.ticker())
+        return repository.existsTicker(input.tickers())
                 .filter(found -> found == Boolean.FALSE)
-                .switchIfEmpty(Mono.error(new CompanyTickerAlreadyExists(input.ticker())))
+                .switchIfEmpty(Mono.error(new CompanyTickerAlreadyExists()))
                 .flatMap(nothing -> saveCompany(input));
     }
 
     private Mono<Void> saveCompany(RegisterCompanyCommand input) {
-        var company = new Company(input.ticker(), input.name());
+        var company = new Company(input.name());
+        input.tickers().forEach(ticker -> company.addTicker(ticker));
         return repository.save(company);
     }
 }

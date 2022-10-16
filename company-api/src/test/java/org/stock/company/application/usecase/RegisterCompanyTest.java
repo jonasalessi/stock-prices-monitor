@@ -8,6 +8,8 @@ import org.stock.company.infra.database.dao.RepositoryInMemory;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegisterCompanyTest {
@@ -23,7 +25,7 @@ class RegisterCompanyTest {
 
     @Test
     void shouldReturnException_WhenCompanyTickerAlreadyExists() {
-        var createCommand = new RegisterCompanyCommand("ABC4", "My name");
+        var createCommand = new RegisterCompanyCommand(List.of("ANIM3"), "My name");
         useCase.execute(createCommand).block();
         Mono<Void> result = useCase.execute(createCommand);
         StepVerifier.create(result).verifyError(CompanyTickerAlreadyExists.class);
@@ -31,8 +33,8 @@ class RegisterCompanyTest {
 
     @Test
     void shouldSaveNewCompany_WhenCompanyTickerNotExists() {
-        Mono<Void> result = useCase.execute(new RegisterCompanyCommand("ABC4", "My name"));
+        Mono<Void> result = useCase.execute(new RegisterCompanyCommand(List.of("ANIM3"), "My name"));
         StepVerifier.create(result).verifyComplete();
-        assertEquals("ABC4", repositoryInMemory.getInMemoryData().get(0).getTicker());
+        assertEquals(List.of("ANIM3"), repositoryInMemory.getInMemoryData().get(0).getTickers());
     }
 }

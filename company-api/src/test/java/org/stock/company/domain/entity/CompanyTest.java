@@ -17,16 +17,16 @@ class CompanyTest {
     @Test
     void shouldThrowsRequiredValueException_WhenValuesAreNullOrEmpty() {
         var tickerIsNull = assertThrows(RequiredValueException.class, () -> {
-            new Company(null, "Name");
+            new Company("Name").addTicker(null);
         });
         var nameIsNull = assertThrows(RequiredValueException.class, () -> {
-            new Company("Ticker", null);
+            new Company(null);
         });
         var tickerIsEmpty = assertThrows(RequiredValueException.class, () -> {
-            new Company("", "Name");
+            new Company("Name").addTicker("");
         });
         var nameIsEmpty = assertThrows(RequiredValueException.class, () -> {
-            new Company("ABC3", "");
+            new Company("");
         });
         assertEquals("Ticker is required", tickerIsEmpty.getMessage());
         assertEquals("Name is required", nameIsEmpty.getMessage());
@@ -38,7 +38,7 @@ class CompanyTest {
     @MethodSource("invalidTickers")
     void shouldNotCreateCompany_WhenTickerIsInvalid(String ticker) {
         var exception = assertThrows(CompanyTickerInvalidException.class, () -> {
-            new Company(ticker, "Invalid company");
+            new Company("Invalid company").addTicker(ticker);
         });
         assertEquals("Company ticker " + ticker + " invalid!", exception.getMessage());
     }
@@ -46,8 +46,8 @@ class CompanyTest {
     @ParameterizedTest
     @ValueSource(strings = {"AFLU5", "ALUP11"})
     void shouldCreateCompany_WhenTickerIsValid(String ticker) {
-        var company = new Company(ticker, "Valid company");
-        assertEquals(ticker, company.getTicker());
+        var company = new Company("Valid company").addTicker(ticker);
+        assertEquals(ticker, company.getTickers().get(0));
     }
 
     private static Stream<String> invalidTickers() {
