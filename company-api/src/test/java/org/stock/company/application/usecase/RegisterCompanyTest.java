@@ -1,9 +1,10 @@
 package org.stock.company.application.usecase;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.stock.company.application.dto.CompanyInput;
+import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
-import org.stock.company.infra.database.dao.RepositoryImpl;
+import org.stock.company.infra.database.dao.RepositoryInMemory;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -11,22 +12,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegisterCompanyTest {
 
+    private RegisterCompany useCase;
+    private RepositoryInMemory repositoryInMemory;
+
+    @BeforeEach
+    public void setup() {
+        repositoryInMemory = new RepositoryInMemory();
+        useCase = new RegisterCompanyImpl(repositoryInMemory);
+    }
+
     @Test
     void shouldReturnException_WhenCompanyTickerAlreadyExists() {
-        var input = new CompanyInput("ABC4", "My name");
-        var registerCompany = new RegisterCompany(new RepositoryImpl());
-        registerCompany.execute(input).block();
-        Mono<Void> result = registerCompany.execute(input);
+        var createCommand = new RegisterCompanyCommand("ABC4", "My name");
+        useCase.execute(createCommand).block();
+        Mono<Void> result = useCase.execute(createCommand);
         StepVerifier.create(result).verifyError(CompanyTickerAlreadyExists.class);
     }
 
     @Test
     void shouldSaveNewCompany_WhenCompanyTickerNotExists() {
-        var input = new CompanyInput("ABC4", "My name");
-        var repository = new RepositoryImpl();
-        var registerCompany = new RegisterCompany(repository);
-        Mono<Void> result = registerCompany.execute(input);
+        Mono<Void> result = useCase.execute(new RegisterCompanyCommand("ABC4", "My name"));
         StepVerifier.create(result).verifyComplete();
-        assertEquals("ABC4", repository.getInMemoryData().get(0).getTicker());
+        assertEquals("ABC4", repositoryInMemory.getInMemoryData().get(0).getTicker());
     }
 }

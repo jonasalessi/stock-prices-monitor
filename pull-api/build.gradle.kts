@@ -21,6 +21,7 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy-reactive")
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
+    implementation("org.stock:kernel:1.0.0")
 }
 
 group = "org.stock.pull"

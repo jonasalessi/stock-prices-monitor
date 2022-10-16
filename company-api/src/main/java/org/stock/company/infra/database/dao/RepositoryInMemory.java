@@ -1,8 +1,8 @@
 package org.stock.company.infra.database.dao;
 
 import org.springframework.stereotype.Component;
+import org.stock.company.application.port.out.CompanyRepository;
 import org.stock.company.domain.entity.Company;
-import org.stock.company.domain.repository.CompanyRepository;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
  * Temporary in memory
  */
 @Component
-public class RepositoryImpl implements CompanyRepository {
+public class RepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
 
     public List<Company> getInMemoryData() {

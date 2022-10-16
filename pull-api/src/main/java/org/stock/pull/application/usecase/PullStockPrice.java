@@ -2,7 +2,7 @@ package org.stock.pull.application.usecase;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.stock.pull.domain.vo.StockPrice;
+import org.stock.domain.vo.StockPrice;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;

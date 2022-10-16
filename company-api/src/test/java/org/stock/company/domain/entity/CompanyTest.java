@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.stock.company.domain.exception.CompanyTickerInvalidException;
+import org.stock.exceptions.RequiredValueException;
 
 import java.util.stream.Stream;
 
@@ -14,15 +15,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CompanyTest {
 
     @Test
-    void shouldThrowsNullPointer_WhenValuesAreNull() {
-        var tickerRequired = assertThrows(NullPointerException.class, () -> {
-            new Company(null, "");
+    void shouldThrowsRequiredValueException_WhenValuesAreNullOrEmpty() {
+        var tickerIsNull = assertThrows(RequiredValueException.class, () -> {
+            new Company(null, "Name");
         });
-        var nameRequired = assertThrows(NullPointerException.class, () -> {
-            new Company("", null);
+        var nameIsNull = assertThrows(RequiredValueException.class, () -> {
+            new Company("Ticker", null);
         });
-        assertEquals("Ticker is required", tickerRequired.getMessage());
-        assertEquals("Name is required", nameRequired.getMessage());
+        var tickerIsEmpty = assertThrows(RequiredValueException.class, () -> {
+            new Company("", "Name");
+        });
+        var nameIsEmpty = assertThrows(RequiredValueException.class, () -> {
+            new Company("ABC3", "");
+        });
+        assertEquals("Ticker is required", tickerIsEmpty.getMessage());
+        assertEquals("Name is required", nameIsEmpty.getMessage());
+        assertEquals("Ticker is required", tickerIsNull.getMessage());
+        assertEquals("Name is required", nameIsNull.getMessage());
     }
 
     @ParameterizedTest

@@ -2,7 +2,7 @@ package org.stock.company.domain.entity;
 
 import org.stock.company.domain.exception.CompanyTickerInvalidException;
 
-import java.util.Objects;
+import static org.stock.utils.Objects.nonNullOrEmpty;
 
 public final class Company {
     private final String ticker;
@@ -21,8 +21,8 @@ public final class Company {
     }
 
     private static void validateInputs(String ticker, String name) {
-        Objects.requireNonNull(ticker, "Ticker is required");
-        Objects.requireNonNull(name, "Name is required");
+        nonNullOrEmpty(ticker, "Ticker is required");
+        nonNullOrEmpty(name, "Name is required");
     }
 
     public String getName() {

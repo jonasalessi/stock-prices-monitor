@@ -1,25 +1,24 @@
 package org.stock.company.infra.http;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.stock.company.application.dto.CompanyInput;
+import org.springframework.web.bind.annotation.*;
+import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.application.usecase.RegisterCompany;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
+@RequestMapping("/company")
 public class CompanyController {
-    private final RegisterCompany useCase;
+    private final RegisterCompany registerCompany;
 
-    public CompanyController(RegisterCompany useCase) {
-        this.useCase = useCase;
+    CompanyController(RegisterCompany registerCompany) {
+        this.registerCompany = registerCompany;
     }
 
-    @GetMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Mono<Void> doSome() {
-        return useCase.execute(new CompanyInput("ABS1", "Some company"));
-    }
+    Mono<Void> createCompany(RegisterCompanyCommand command) {
+        return registerCompany.execute(command);
+    } 
 }
