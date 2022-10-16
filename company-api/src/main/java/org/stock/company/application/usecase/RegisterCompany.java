@@ -7,15 +7,12 @@ import org.stock.company.domain.entity.Company;
 import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
 import reactor.core.publisher.Mono;
 
-import java.util.logging.Logger;
-
 public interface RegisterCompany {
     Mono<Void> execute(RegisterCompanyCommand input);
 }
 
 @Component
-class RegisterCompanyImpl implements  RegisterCompany {
-    private static final Logger LOG = Logger.getLogger("RegisterCompany");
+class RegisterCompanyImpl implements RegisterCompany {
 
     private final CompanyRepository repository;
 
@@ -31,7 +28,6 @@ class RegisterCompanyImpl implements  RegisterCompany {
     }
 
     private Mono<Void> saveCompany(RegisterCompanyCommand input) {
-        LOG.info("Creating company");
         var company = new Company(input.ticker(), input.name());
         return repository.save(company);
     }

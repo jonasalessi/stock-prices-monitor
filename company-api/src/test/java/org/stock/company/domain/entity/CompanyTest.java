@@ -44,14 +44,14 @@ class CompanyTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"ABC3", "ABC4"})
+    @ValueSource(strings = {"AFLU5", "ALUP11"})
     void shouldCreateCompany_WhenTickerIsValid(String ticker) {
         var company = new Company(ticker, "Valid company");
         assertEquals(ticker, company.getTicker());
     }
 
     private static Stream<String> invalidTickers() {
-        return Stream.of("ABCA3", "1BC3", "A1C3", "AB13", "ABCD", "ABCDE", "AB", "A", "ABC");
+        return Stream.of("ABC3", "1BC3", "A1C3", "AB13", "ABCD", "ABCDE", "AB", "A", "ABC");
     }
 
 }

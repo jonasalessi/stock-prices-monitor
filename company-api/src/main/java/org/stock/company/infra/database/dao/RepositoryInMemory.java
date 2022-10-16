@@ -21,14 +21,18 @@ public class RepositoryInMemory implements CompanyRepository {
 
     @Override
     public Mono<Void> save(Company company) {
-        inMemoryData.add(company);
+        synchronized (this) {
+            inMemoryData.add(company);
+        }
         return Mono.empty();
     }
 
     @Override
     public Mono<Boolean> existsTicker(String ticker) {
-        if (inMemoryData.stream().anyMatch(it -> it.getTicker().equals(ticker))) {
-            return Mono.just(Boolean.TRUE);
+        synchronized (this) {
+            if (inMemoryData.stream().anyMatch(it -> it.getTicker().equals(ticker))) {
+                return Mono.just(Boolean.TRUE);
+            }
         }
         return Mono.just(Boolean.FALSE);
     }

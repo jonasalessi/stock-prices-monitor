@@ -17,7 +17,7 @@ public final class Company {
     }
 
     private static void validateTickerFormat(String tickerFormatted) {
-        if (!tickerFormatted.matches("[A-Z]{3}\\d")) throw new CompanyTickerInvalidException(tickerFormatted);
+        if (!tickerFormatted.matches("[A-Z]{4}\\d{1,2}")) throw new CompanyTickerInvalidException(tickerFormatted);
     }
 
     private static void validateInputs(String ticker, String name) {
