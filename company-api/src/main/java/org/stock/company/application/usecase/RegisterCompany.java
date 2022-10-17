@@ -29,7 +29,7 @@ class RegisterCompanyImpl implements RegisterCompany {
 
     private Mono<Void> saveCompany(RegisterCompanyCommand input) {
         var company = new Company(input.name());
-        input.tickers().forEach(ticker -> company.addTicker(ticker));
+        input.tickers().forEach(company::addTicker);
         return repository.save(company);
     }
 }
