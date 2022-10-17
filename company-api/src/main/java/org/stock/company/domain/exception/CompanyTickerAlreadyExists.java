@@ -1,10 +1,10 @@
 package org.stock.company.domain.exception;
 
-import static java.lang.String.format;
+import org.stock.exceptions.DomainException;
 
 public class CompanyTickerAlreadyExists extends DomainException {
 
-    public CompanyTickerAlreadyExists(String ticker) {
-        super(format("Ticker %s already exists!", ticker));
+    public CompanyTickerAlreadyExists() {
+        super("Ticker already exists!");
     }
 }

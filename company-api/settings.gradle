@@ -1,1 +1,3 @@
 rootProject.name = 'company-api'
+
+includeBuild("../kernel")

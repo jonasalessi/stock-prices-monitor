@@ -16,3 +16,9 @@ Reat-Time-API will expose the prices in real time using [Server-Sent Events](htt
 ```bash
  docker-compose -f common.yml -f kafka_cluster.yml up -d
 ```
+
+## Running K6 for Performance Test
+Creating all companies + tickers
+```bash
+docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/companies.js
+ ```

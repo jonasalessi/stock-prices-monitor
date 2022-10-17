@@ -1,4 +1,4 @@
-package org.stock.company.domain.exception;
+package org.stock.exceptions;
 
 public class DomainException extends RuntimeException {
     protected DomainException(String message) {
