@@ -12,21 +12,21 @@ CREATE SCHEMA "pull-api" AUTHORIZATION pull;
 
 -- Create the Company API tables 
 
-CREATE TABLE "company-api"."event-register-company" (
-	id serial PRIMARY KEY,
+CREATE TABLE "company-api"."event_register_company" (
+	id bigserial PRIMARY KEY,
 	payload jsonb NOT NULL,
 	"time" timestamp NOT NULL
 );
 
-ALTER TABLE "company-api"."event-register-company" REPLICA IDENTITY FULL;
+ALTER TABLE "company-api"."event_register_company" REPLICA IDENTITY FULL;
 
 CREATE TABLE "company-api".company (
-	id serial PRIMARY KEY,
+	id bigserial PRIMARY KEY,
 	name varchar(255) NOT NULL
 );
 
 CREATE TABLE "company-api".ticker (
-	id serial primary KEY,
+	id bigserial primary KEY,
 	company_id int4 NULL,
 	"name" varchar(10) NOT NULL,
 	CONSTRAINT ticker_company_fk FOREIGN KEY (company_id) REFERENCES "company-api".company(id)

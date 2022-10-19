@@ -33,7 +33,7 @@ export const options = {
 export default function () {
   const company = data[scenario.iterationInTest];
   if (!company.name || !company.tickers) return;
-  const res = http.post(`http://host.docker.internal:8080/company`, company);
+  const res = http.post(`http://host.docker.internal:8080/companies`, company);
   check(res, {
     [`is company ${company.name} created`]: (res) => res.status === 201,
   });

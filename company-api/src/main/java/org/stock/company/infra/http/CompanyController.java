@@ -4,24 +4,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.stock.company.application.dto.CompanyTickerSearchDto;
 import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.application.usecase.RegisterCompany;
+import org.stock.company.application.usecase.SearchCompanyTickerQuery;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/companies")
 public class CompanyController {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyController.class);
-    private final RegisterCompany registerCompany;
 
-    CompanyController(RegisterCompany registerCompany) {
+    private final RegisterCompany registerCompany;
+    private final SearchCompanyTickerQuery searchCompany;
+
+    public CompanyController(RegisterCompany registerCompany, SearchCompanyTickerQuery searchCompany) {
         this.registerCompany = registerCompany;
+        this.searchCompany = searchCompany;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Mono<Void> createCompany(RegisterCompanyCommand command) {
+    Mono<Void> createCompany(@RequestBody RegisterCompanyCommand command) {
         LOG.info("Creating company {}", command);
         return registerCompany.execute(command);
     }
+
+    @GetMapping
+    Flux<CompanyTickerSearchDto> searchBy(@RequestParam String query) {
+        LOG.info("Company+ticker searching by {}", query);
+        return searchCompany.execute(query);
+    }
+
 }
