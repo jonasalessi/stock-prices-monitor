@@ -4,6 +4,11 @@ import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import { SharedArray } from 'k6/data';
 import { scenario } from 'k6/execution';
 
+const params = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
 const csvData = new SharedArray('Companies', function () {
   return papaparse.parse(open('./companies.csv'), { header: true }).data;
@@ -23,7 +28,7 @@ export const options = {
   scenarios: {
     'use-all-the-data': {
       executor: 'shared-iterations',
-      vus: 50,
+      vus: 276,
       iterations: data.length,
       maxDuration: '15m',
     },
@@ -33,7 +38,8 @@ export const options = {
 export default function () {
   const company = data[scenario.iterationInTest];
   if (!company.name || !company.tickers) return;
-  const res = http.post(`http://host.docker.internal:8080/companies`, company);
+  const payload = JSON.stringify(company);
+  const res = http.post(`http://host.docker.internal:8080/companies`, payload, params);
   check(res, {
     [`is company ${company.name} created`]: (res) => res.status === 201,
   });

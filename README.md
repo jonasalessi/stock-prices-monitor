@@ -25,6 +25,6 @@ Then, after everything is running well it's time to create the Debezium connecto
 ## Running K6 for Performance Test
 Creating all companies + tickers
 ```bash
-docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/companies.js
+docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/create-companies.js
  ```
 

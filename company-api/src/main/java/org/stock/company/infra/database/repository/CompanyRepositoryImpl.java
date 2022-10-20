@@ -2,6 +2,7 @@ package org.stock.company.infra.database.repository;
 
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.stock.company.application.port.out.CompanyRepository;
 import org.stock.company.domain.entity.Company;
 import org.stock.company.infra.database.entity.CompanyEntity;
@@ -23,15 +24,18 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
+    @Transactional
     public Mono<Void> save(Company company) {
         var entity = new CompanyEntity(null, company.getName());
         return companyRepository.save(entity)
                 .flatMapMany(saveTickers(company.getTickers()))
                 .then();
     }
+
     private Function<CompanyEntity, Publisher<TickerEntity>> saveTickers(List<String> tickers) {
         return company -> tickerRepository.saveAll(toTickerEntity(tickers, company.getId()));
     }
+
 
     private List<TickerEntity> toTickerEntity(List<String> tickers, Long companyEntityId) {
         return tickers.stream().map(it -> new TickerEntity(null, it, companyEntityId)).toList();

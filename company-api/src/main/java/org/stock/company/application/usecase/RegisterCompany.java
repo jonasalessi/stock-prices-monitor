@@ -20,6 +20,7 @@ class RegisterCompanyImpl implements RegisterCompany {
         this.repository = repository;
     }
 
+
     public Mono<Void> execute(RegisterCompanyCommand input) {
         return repository.existsTicker(input.tickers())
                 .filter(found -> found == Boolean.FALSE)
