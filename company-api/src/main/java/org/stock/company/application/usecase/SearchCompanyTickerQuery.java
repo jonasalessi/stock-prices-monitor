@@ -18,15 +18,14 @@ class SearchCompanyTickerQueryImpl implements SearchCompanyTickerQuery {
     }
 
     @Override
-    public Flux<CompanyTickerSearchDto> execute(String query) {
+    public Flux<CompanyTickerSearchDto> execute(String name) {
         return client.sql("""
-                        select c.name, t.name
+                        select c.name as company, t.name as ticker
                             from company c join ticker t on t.company_id = c.id
-                           where c.name like :query or t.name like :query
+                           where c.name like :name or t.name like :name
                         """)
-                .bind("query", "%" + query.toUpperCase() + "%")
-                .map(row ->
-                        new CompanyTickerSearchDto(row.get(0, String.class), row.get(1, String.class))
-                ).all();
+                .bind("name", "%" + name.toUpperCase() + "%")
+                .map(r -> new CompanyTickerSearchDto(r.get("company", String.class), r.get("ticker", String.class)))
+                .all();
     }
 }

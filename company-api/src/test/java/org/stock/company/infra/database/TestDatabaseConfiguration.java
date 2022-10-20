@@ -15,18 +15,6 @@ import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 public class TestDatabaseConfiguration {
 
     @Bean
-    public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
-        ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
-        initializer.setConnectionFactory(connectionFactory);
-
-        CompositeDatabasePopulator populator = new CompositeDatabasePopulator();
-        populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("init.sql")));
-        initializer.setDatabasePopulator(populator);
-
-        return initializer;
-    }
-
-    @Bean
     public ConnectionFactory inMemory() {
        return new H2ConnectionFactory(H2ConnectionConfiguration.builder()
                 .inMemory("stock")
