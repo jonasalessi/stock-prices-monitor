@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
-import org.stock.company.infra.database.dao.RepositoryInMemory;
+import org.stock.company.infra.database.RepositoryInMemory;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 

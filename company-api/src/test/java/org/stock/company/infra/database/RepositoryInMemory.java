@@ -1,4 +1,4 @@
-package org.stock.company.infra.database.dao;
+package org.stock.company.infra.database;
 
 import org.springframework.stereotype.Component;
 import org.stock.company.application.port.out.CompanyRepository;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Temporary in memory
  */
-@Component
+//@Component
 public class RepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
     private final HashSet<String> savedTickers = new HashSet<>();

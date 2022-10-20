@@ -20,6 +20,7 @@ class RegisterCompanyImpl implements RegisterCompany {
         this.repository = repository;
     }
 
+
     public Mono<Void> execute(RegisterCompanyCommand input) {
         return repository.existsTicker(input.tickers())
                 .filter(found -> found == Boolean.FALSE)
@@ -29,7 +30,7 @@ class RegisterCompanyImpl implements RegisterCompany {
 
     private Mono<Void> saveCompany(RegisterCompanyCommand input) {
         var company = new Company(input.name());
-        input.tickers().forEach(ticker -> company.addTicker(ticker));
+        input.tickers().forEach(company::addTicker);
         return repository.save(company);
     }
 }

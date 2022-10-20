@@ -14,11 +14,17 @@ Reat-Time-API will expose the prices in real time using [Server-Sent Events](htt
 
 ## Running the Dependencies
 ```bash
- docker-compose -f common.yml -f kafka_cluster.yml up -d
+ cd docker
+ docker-compose -f common.yml -f kafka_cluster.yml -f database.yml up -d
+```
+Then, after everything is running well it's time to create the Debezium connector running (from the docker folder):
+```bash
+ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@configs/debezium.json"
 ```
 
 ## Running K6 for Performance Test
 Creating all companies + tickers
 ```bash
-docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/companies.js
+docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/create-companies.js
  ```
+
