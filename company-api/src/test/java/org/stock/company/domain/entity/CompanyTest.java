@@ -47,6 +47,7 @@ class CompanyTest {
     @ValueSource(strings = {"AFLU5", "ALUP11"})
     void shouldCreateCompany_WhenTickerIsValid(String ticker) {
         var company = new Company("Valid company").addTicker(ticker);
+        assertEquals(1, company.getTickers().size());
         assertEquals(ticker, company.getTickers().get(0));
     }
 

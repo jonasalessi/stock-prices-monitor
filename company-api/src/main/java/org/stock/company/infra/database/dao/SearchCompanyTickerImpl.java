@@ -1,19 +1,16 @@
-package org.stock.company.application.usecase;
+package org.stock.company.infra.database.dao;
 
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Component;
 import org.stock.company.application.dto.CompanyTickerSearchDto;
+import org.stock.company.application.query.SearchCompanyTicker;
 import reactor.core.publisher.Flux;
 
-public interface SearchCompanyTickerQuery {
-    Flux<CompanyTickerSearchDto> execute(String query);
-}
-
 @Component
-class SearchCompanyTickerQueryImpl implements SearchCompanyTickerQuery {
+class SearchCompanyTickerImpl implements SearchCompanyTicker {
     private final DatabaseClient client;
 
-    public SearchCompanyTickerQueryImpl(DatabaseClient client) {
+    public SearchCompanyTickerImpl(DatabaseClient client) {
         this.client = client;
     }
 

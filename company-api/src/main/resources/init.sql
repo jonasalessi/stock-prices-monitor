@@ -1,22 +1,22 @@
-CREATE TABLE "company-api"."event_register_company"
+CREATE TABLE register_company_outbox
 (
     id      bigserial PRIMARY KEY,
-    payload jsonb     NOT NULL,
-    "time"  timestamp NOT NULL
+    payload  varchar(1000)     NOT NULL,
+    created_at  timestamp  NOT NULL
 );
 
-ALTER TABLE "company-api"."event_register_company" REPLICA IDENTITY FULL;
+ALTER TABLE register_company_outbox REPLICA IDENTITY FULL;
 
-CREATE TABLE "company-api".company
+CREATE TABLE company
 (
     id   bigserial PRIMARY KEY,
     name varchar(255) NOT NULL
 );
 
-CREATE TABLE "company-api".ticker
+CREATE TABLE ticker
 (
     id         bigserial primary KEY,
     company_id int4 NULL,
-    "name"     varchar(10) NOT NULL,
+    name     varchar(10) NOT NULL,
     CONSTRAINT ticker_company_fk FOREIGN KEY (company_id) REFERENCES "company-api".company (id)
 );

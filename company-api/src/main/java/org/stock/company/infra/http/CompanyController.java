@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.stock.company.application.dto.CompanyTickerSearchDto;
 import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.application.usecase.RegisterCompany;
-import org.stock.company.application.usecase.SearchCompanyTickerQuery;
+import org.stock.company.application.query.SearchCompanyTicker;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -17,9 +17,9 @@ public class CompanyController {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyController.class);
 
     private final RegisterCompany registerCompany;
-    private final SearchCompanyTickerQuery searchCompany;
+    private final SearchCompanyTicker searchCompany;
 
-    public CompanyController(RegisterCompany registerCompany, SearchCompanyTickerQuery searchCompany) {
+    public CompanyController(RegisterCompany registerCompany, SearchCompanyTicker searchCompany) {
         this.registerCompany = registerCompany;
         this.searchCompany = searchCompany;
     }
