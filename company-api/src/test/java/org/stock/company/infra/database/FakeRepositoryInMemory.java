@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Temporary in memory
  */
-public class RepositoryInMemory implements CompanyRepository {
+public class FakeRepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
     private final HashSet<String> savedTickers = new HashSet<>();
 

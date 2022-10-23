@@ -1,6 +1,7 @@
 package org.stock.company.infra.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.r2dbc.core.DatabaseClient;
@@ -13,7 +14,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CompanyControllerIT extends AbstractIT {
+@Tag("integration")
+class CompanyControllerTest extends AbstractIT {
 
     @Autowired
     private WebTestClient webTestClient;
