@@ -19,12 +19,14 @@ dependencies {
 	// Database
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+	runtimeOnly 'org.liquibase:liquibase-core'
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'com.h2database:h2'
 	testImplementation 'io.r2dbc:r2dbc-h2'
+
 
 }
 
