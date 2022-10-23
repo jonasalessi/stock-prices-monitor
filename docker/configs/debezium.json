@@ -1,5 +1,5 @@
 {
-  "name": "stock-company-connector",
+  "name": "company-api-register-company",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "plugin.name": "pgoutput",
@@ -9,6 +9,6 @@
     "database.password": "admin",
     "database.dbname": "stock",
     "database.server.name": "postgres",
-    "table.include.list": "company-api.event-register-company"
+    "table.include.list": "company_api.register_company_outbox"
   }
 }

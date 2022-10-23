@@ -1,0 +1,53 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="jonas" id="1666515331622-1-Create company table">
+        <createTable tableName="company">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="jonas" id="1666515331622-2-Create outbox table for register company">
+        <createTable tableName="register_company_outbox">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="register_company_outbox_pkey"/>
+            </column>
+            <column name="payload" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="jonas" id="1666515331622-3- Create ticker table">
+        <createTable tableName="ticker">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ticker_pkey"/>
+            </column>
+            <column name="company_id" type="INTEGER"/>
+            <column name="name" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="jonas" id="1666515331622-4-create company ticker fk" >
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="ticker" constraintName="ticker_company_fk"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="company" validate="true"/>
+    </changeSet>
+
+    <changeSet id="1666515331622-5-add replicate identify" author="jonas" dbms="postgresql">
+        <sql>ALTER TABLE register_company_outbox REPLICA IDENTITY FULL;</sql>
+    </changeSet>
+
+</databaseChangeLog>

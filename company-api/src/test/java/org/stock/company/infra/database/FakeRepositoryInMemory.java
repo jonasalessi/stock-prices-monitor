@@ -1,6 +1,5 @@
 package org.stock.company.infra.database;
 
-import org.springframework.stereotype.Component;
 import org.stock.company.application.port.out.CompanyRepository;
 import org.stock.company.domain.entity.Company;
 import reactor.core.publisher.Mono;
@@ -12,8 +11,7 @@ import java.util.List;
 /**
  * Temporary in memory
  */
-//@Component
-public class RepositoryInMemory implements CompanyRepository {
+public class FakeRepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
     private final HashSet<String> savedTickers = new HashSet<>();
 
@@ -33,7 +31,7 @@ public class RepositoryInMemory implements CompanyRepository {
     @Override
     public Mono<Boolean> existsTicker(List<String> tickers) {
         synchronized (this) {
-            if (tickers.stream().anyMatch(ticker -> savedTickers.contains(ticker))) {
+            if (tickers.stream().anyMatch(savedTickers::contains)) {
                 return Mono.just(Boolean.TRUE);
             }
         }
