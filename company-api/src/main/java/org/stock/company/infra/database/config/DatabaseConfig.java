@@ -15,4 +15,5 @@ public class DatabaseConfig {
     ReactiveTransactionManager transactionManager(ConnectionFactory connectionFactory) {
         return new R2dbcTransactionManager(connectionFactory);
     }
+
 }

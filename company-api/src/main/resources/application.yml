@@ -3,9 +3,3 @@ spring:
     url: r2dbc:pool:postgresql://localhost:5432/stock?schema=company-api
     username: company
     password: admin
-
-  liquibase:
-    change-log: classpath:/db/master.xml
-    url: jdbc:postgresql://localhost:5432/stock?schema=company-api
-    username: company
-    password: admin

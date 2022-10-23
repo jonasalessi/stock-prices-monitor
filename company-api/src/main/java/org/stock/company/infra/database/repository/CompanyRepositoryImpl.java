@@ -1,6 +1,6 @@
 package org.stock.company.infra.database.repository;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.stock.company.application.port.out.CompanyRepository;
 import org.stock.company.domain.entity.Company;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.function.Function;
 
-@Component
+@Repository
 public class CompanyRepositoryImpl implements CompanyRepository {
 
     private final CompanyCrudRepository companyRepository;

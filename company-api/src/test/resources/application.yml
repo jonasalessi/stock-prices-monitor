@@ -1,3 +1,8 @@
 spring:
   profiles:
-    active: test,init
+    active: test
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=-1;MODE=Postgresql;SCHEMA=public
+    username: sa
+  liquibase:
+    change-log: classpath:/db/master.xml
