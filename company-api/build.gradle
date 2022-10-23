@@ -46,7 +46,7 @@ liquibase {
 	activities {
 		main {
 			changeLogFile "src/main/resources/db/master.xml"
-			url "jdbc:postgresql://localhost:5432/stock?currentSchema=company-api"
+			url "jdbc:postgresql://localhost:5432/stock?currentSchema=company_api"
 			username "company"
 			password "admin"
 		}

@@ -1,5 +1,5 @@
 spring:
   r2dbc:
-    url: r2dbc:pool:postgresql://localhost:5432/stock?schema=company-api
+    url: r2dbc:pool:postgresql://localhost:5432/stock?schema=company_api
     username: company
     password: admin

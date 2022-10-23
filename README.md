@@ -17,7 +17,7 @@ Reat-Time-API will expose the prices in real time using [Server-Sent Events](htt
 ## Running the Dependencies
 ```bash
  cd docker
- docker-compose -f common.yml -f kafka_cluster.yml -f database.yml up -d
+ docker-compose -f common.yml -f kafka.yml -f database.yml up -d
 ```
 Then, after everything is running well it's time to create the Debezium connector running (from the docker folder):
 ```bash
