@@ -12,7 +12,7 @@ Reat-Time-API will expose the prices in real time using [Server-Sent Events](htt
 
 [Company API](/company-api/) a simple CRUD application to manage company + tickers data.
 
-[Client k4](/client-k4/) it's a script to simulate some users requesting the endpoint.
+[Client k6](/clientk6/) it's a script to simulate some users requesting the endpoint.
 
 ## Running the Dependencies
 ```bash
@@ -25,8 +25,11 @@ Then, after everything is running well it's time to create the Debezium connecto
 ```
 
 ## Running K6 for Performance Test
+[K6 Installation](https://k6.io/docs/getting-started/installation/)
+
 Creating all companies + tickers
 ```bash
-docker run -it --rm -v ${PWD}/clientk6:/scripts grafana/k6 run /scripts/create-companies.js
+cd clientk6
+k6 run create-companies.js
  ```
 
