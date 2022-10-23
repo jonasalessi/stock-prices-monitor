@@ -3,6 +3,7 @@ package org.stock.company.domain.entity;
 import org.stock.company.domain.exception.CompanyTickerInvalidException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.stock.utils.Objects.nonNullOrEmpty;
@@ -31,6 +32,6 @@ public final class Company {
     }
 
     public List<String> getTickers() {
-        return new ArrayList<>(tickers);
+        return Collections.unmodifiableList(tickers);
     }
 }
