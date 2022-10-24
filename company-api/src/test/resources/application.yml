@@ -2,7 +2,6 @@ spring:
   profiles:
     active: test
   r2dbc:
-    url: r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=-1;MODE=Postgresql;SCHEMA=public
-    username: sa
+    url: r2dbc:tc:postgresql:///stocktest?TC_IMAGE_TAG=14-alpine
   liquibase:
     change-log: classpath:master-test.xml

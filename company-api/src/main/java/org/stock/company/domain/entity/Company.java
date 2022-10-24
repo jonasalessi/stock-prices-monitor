@@ -23,7 +23,8 @@ public final class Company {
         this.tickers.add(tickerFormatted);
         return this;
     }
-    private static void validateTickerFormat(String tickerFormatted) {
+
+    private void validateTickerFormat(String tickerFormatted) {
         if (!tickerFormatted.matches("[A-Z]{4}\\d{1,2}")) throw new CompanyTickerInvalidException(tickerFormatted);
     }
 
