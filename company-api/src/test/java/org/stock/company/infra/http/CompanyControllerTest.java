@@ -12,7 +12,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @Tag("integration")
 class CompanyControllerTest extends AbstractIT {
@@ -62,8 +65,8 @@ class CompanyControllerTest extends AbstractIT {
                 .map(m -> convertPayloadToRegisterCompanyCommand(m.get("PAYLOAD").toString()))
                 .blockLast();
 
-        assertNotNull(result);
-        assertEquals(result, command);
+        assertThat(result, notNullValue());
+        assertThat(result, equalTo(command));
 
     }
 

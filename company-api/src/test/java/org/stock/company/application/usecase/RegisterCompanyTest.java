@@ -11,7 +11,8 @@ import reactor.test.StepVerifier;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 class RegisterCompanyTest {
 
@@ -31,13 +32,16 @@ class RegisterCompanyTest {
         var result = useCase.execute(createdCommand);
         StepVerifier.create(result)
                 .verifyError(CompanyTickerAlreadyExists.class);
+        assertThat(fakeRepositoryInMemory.getInMemoryData().size(), equalTo(1));
     }
 
     @Test
     void shouldSaveNewCompany_WhenCompanyTickerNotExists() {
         Mono<Void> result = useCase.execute(createRegisterCompanyCommand());
         StepVerifier.create(result).verifyComplete();
-        assertEquals(List.of("ANIM3"), fakeRepositoryInMemory.getInMemoryData().get(0).getTickers());
+        var tickers = fakeRepositoryInMemory.getInMemoryData().get(0).getTickers();
+        assertThat(fakeRepositoryInMemory.getInMemoryData().size(), equalTo(1));
+        assertThat(tickers, equalTo(List.of("ANIM3")));
     }
 
     private RegisterCompanyCommand createRegisterCompanyCommand() {

@@ -9,7 +9,8 @@ import org.stock.exceptions.RequiredValueException;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CompanyTest {
@@ -28,10 +29,10 @@ class CompanyTest {
         var nameIsEmpty = assertThrows(RequiredValueException.class, () -> {
             new Company("");
         });
-        assertEquals("Ticker is required", tickerIsEmpty.getMessage());
-        assertEquals("Name is required", nameIsEmpty.getMessage());
-        assertEquals("Ticker is required", tickerIsNull.getMessage());
-        assertEquals("Name is required", nameIsNull.getMessage());
+        assertThat(tickerIsEmpty.getMessage(), equalTo("Ticker is required"));
+        assertThat(nameIsEmpty.getMessage(), equalTo("Name is required"));
+        assertThat(tickerIsNull.getMessage(), equalTo("Ticker is required"));
+        assertThat(nameIsNull.getMessage(), equalTo("Name is required"));
     }
 
     @ParameterizedTest
@@ -40,15 +41,15 @@ class CompanyTest {
         var exception = assertThrows(CompanyTickerInvalidException.class, () -> {
             new Company("Invalid company").addTicker(ticker);
         });
-        assertEquals("Company ticker " + ticker + " invalid!", exception.getMessage());
+        assertThat(exception.getMessage(), equalTo("Company ticker " + ticker + " invalid!"));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"AFLU5", "ALUP11"})
     void shouldCreateCompany_WhenTickerIsValid(String ticker) {
         var company = new Company("Valid company").addTicker(ticker);
-        assertEquals(1, company.getTickers().size());
-        assertEquals(ticker, company.getTickers().get(0));
+        assertThat(company.getTickers().size(), equalTo(1));
+        assertThat(company.getTickers().get(0), equalTo(ticker));
     }
 
     private static Stream<String> invalidTickers() {
