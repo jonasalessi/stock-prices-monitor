@@ -74,8 +74,7 @@ class CompanyControllerTest extends AbstractIT {
         try {
             return mapper.readValue(payload, RegisterCompanyCommand.class);
         } catch (Exception e) {
-            fail(e);
-            return null;
+            return fail(e);
         }
     }
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.stock.company.application.port.in.RegisterCompanyCommand;
 import org.stock.company.application.usecase.impl.RegisterCompanyImpl;
 import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
-import org.stock.company.infra.database.FakeRepositoryInMemory;
+import org.stock.company.infra.database.fake.CompanyRepositoryInMemory;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -17,12 +17,12 @@ import static org.hamcrest.Matchers.equalTo;
 class RegisterCompanyTest {
 
     private RegisterCompany useCase;
-    private FakeRepositoryInMemory fakeRepositoryInMemory;
+    private CompanyRepositoryInMemory companyRepositoryMem;
 
     @BeforeEach
     public void setup() {
-        fakeRepositoryInMemory = new FakeRepositoryInMemory();
-        useCase = new RegisterCompanyImpl(fakeRepositoryInMemory);
+        companyRepositoryMem = new CompanyRepositoryInMemory();
+        useCase = new RegisterCompanyImpl(companyRepositoryMem);
     }
 
     @Test
@@ -32,15 +32,15 @@ class RegisterCompanyTest {
         var result = useCase.execute(createdCommand);
         StepVerifier.create(result)
                 .verifyError(CompanyTickerAlreadyExists.class);
-        assertThat(fakeRepositoryInMemory.getInMemoryData().size(), equalTo(1));
+        assertThat(companyRepositoryMem.getInMemoryData().size(), equalTo(1));
     }
 
     @Test
     void shouldSaveNewCompany_WhenCompanyTickerNotExists() {
         Mono<Void> result = useCase.execute(createRegisterCompanyCommand());
         StepVerifier.create(result).verifyComplete();
-        var tickers = fakeRepositoryInMemory.getInMemoryData().get(0).getTickers();
-        assertThat(fakeRepositoryInMemory.getInMemoryData().size(), equalTo(1));
+        var tickers = companyRepositoryMem.getInMemoryData().get(0).getTickers();
+        assertThat(companyRepositoryMem.getInMemoryData().size(), equalTo(1));
         assertThat(tickers, equalTo(List.of("ANIM3")));
     }
 

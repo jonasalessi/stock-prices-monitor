@@ -1,4 +1,4 @@
-package org.stock.company.infra.database;
+package org.stock.company.infra.database.fake;
 
 import org.stock.company.application.port.out.CompanyRepository;
 import org.stock.company.domain.entity.Company;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Temporary in memory
  */
-public class FakeRepositoryInMemory implements CompanyRepository {
+public class CompanyRepositoryInMemory implements CompanyRepository {
     private final List<Company> inMemoryData = new ArrayList<>();
     private final HashSet<String> savedTickers = new HashSet<>();
 
