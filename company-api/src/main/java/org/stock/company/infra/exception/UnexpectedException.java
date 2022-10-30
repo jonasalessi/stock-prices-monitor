@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-public class UnexpectedException extends RuntimeException{
+public class UnexpectedException extends RuntimeException {
     private static final Logger LOG = LoggerFactory.getLogger(UnexpectedException.class);
 
     private final UUID id = UUID.randomUUID();

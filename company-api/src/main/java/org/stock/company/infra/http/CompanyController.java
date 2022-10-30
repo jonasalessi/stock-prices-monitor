@@ -13,13 +13,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/companies")
-public class CompanyController {
+class CompanyController {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyController.class);
 
     private final RegisterCompany registerCompany;
     private final SearchCompanyTicker searchCompany;
 
-    public CompanyController(RegisterCompany registerCompany, SearchCompanyTicker searchCompany) {
+    CompanyController(RegisterCompany registerCompany, SearchCompanyTicker searchCompany) {
         this.registerCompany = registerCompany;
         this.searchCompany = searchCompany;
     }

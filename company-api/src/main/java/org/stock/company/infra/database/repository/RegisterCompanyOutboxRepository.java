@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 import java.time.Instant;
 
 @Repository
-public class RegisterCompanyOutboxRepository {
+class RegisterCompanyOutboxRepository {
     private final DatabaseClient client;
     private final ObjectMapper mapper;
 

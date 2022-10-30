@@ -9,11 +9,11 @@ import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
 import reactor.core.publisher.Mono;
 
 @Component
-public class RegisterCompanyImpl implements RegisterCompany {
+class RegisterCompanyImpl implements RegisterCompany {
 
     private final CompanyRepository repository;
 
-    public RegisterCompanyImpl(CompanyRepository repository) {
+    RegisterCompanyImpl(CompanyRepository repository) {
         this.repository = repository;
     }
 

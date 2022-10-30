@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.function.Function;
 
 @Repository
-public class CompanyRepositoryImpl implements CompanyRepository {
+class CompanyRepositoryImpl implements CompanyRepository {
 
     private final CompanyCrudRepository companyRepository;
     private final TickerCrudRepository tickerRepository;
     private final RegisterCompanyOutboxRepository eventRepository;
 
-    public CompanyRepositoryImpl(CompanyCrudRepository companyRepository, TickerCrudRepository tickerRepository,
+    CompanyRepositoryImpl(CompanyCrudRepository companyRepository, TickerCrudRepository tickerRepository,
                                  RegisterCompanyOutboxRepository eventRepository) {
         this.companyRepository = companyRepository;
         this.tickerRepository = tickerRepository;
@@ -32,8 +32,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         var entity = new CompanyEntity(null, company.getName());
         return companyRepository.save(entity)
                 .flatMapMany(saveTickers(company.getTickers()))
-                .then()
-                .and(eventRepository.saveEvent(company));
+                .then(eventRepository.saveEvent(company));
     }
 
     private Function<CompanyEntity, Flux<TickerEntity>> saveTickers(List<String> tickers) {

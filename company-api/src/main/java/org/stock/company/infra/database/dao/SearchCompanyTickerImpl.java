@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 class SearchCompanyTickerImpl implements SearchCompanyTicker {
     private final DatabaseClient client;
 
-    public SearchCompanyTickerImpl(DatabaseClient client) {
+    SearchCompanyTickerImpl(DatabaseClient client) {
         this.client = client;
     }
 

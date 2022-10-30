@@ -6,5 +6,4 @@ import org.stock.company.infra.database.entity.CompanyEntity;
 
 @Repository
 public interface CompanyCrudRepository extends ReactiveCrudRepository<CompanyEntity, Long> {
-
 }

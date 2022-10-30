@@ -1,9 +1,9 @@
-package org.stock.company.application.usecase;
+package org.stock.company.application.usecase.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.stock.company.application.port.in.RegisterCompanyCommand;
-import org.stock.company.application.usecase.impl.RegisterCompanyImpl;
+import org.stock.company.application.usecase.RegisterCompany;
 import org.stock.company.domain.exception.CompanyTickerAlreadyExists;
 import org.stock.company.infra.database.fake.CompanyRepositoryInMemory;
 import reactor.core.publisher.Mono;

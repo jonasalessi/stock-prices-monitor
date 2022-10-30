@@ -1,6 +1,5 @@
 package org.stock.company.infra.http;
 
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,9 +26,6 @@ public class RestErrorHandler {
     }
 
     private <T> Mono<EntityResponse<String>> createBadRequest(String message) {
-        return EntityResponse.fromObject(message)
-                .status(HttpStatus.BAD_REQUEST)
-                .contentType(MediaType.TEXT_PLAIN)
-                .build();
+        return EntityResponse.fromObject(message).status(HttpStatus.BAD_REQUEST).contentType(MediaType.TEXT_PLAIN).build();
     }
 }

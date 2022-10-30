@@ -28,7 +28,7 @@ class CompanyControllerTest extends AbstractIT {
     private ObjectMapper mapper;
 
     @Test
-    void shouldCreateANewCompany_and_ListItByName() {
+    void shouldFindMyCompany2022ByJON_WhenTickerContainsJON() {
         var command = createRegisterCompanyCommand();
 
         webTestClient.post()
