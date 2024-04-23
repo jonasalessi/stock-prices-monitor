@@ -1,5 +1,5 @@
 # Stock Prices Monitor
-It's a simple project just for fun using Quarkus with Kafka reactive channels and Spring Boot to provide the prices to the UI.
+It's a simple over-engineering project just for fun, using Quarkus with Kafka reactive channels and Spring Boot to provide the prices to the UI.
 
 ## Basic Idea
 ![Idea](/docs/idea.excalidraw.svg)
